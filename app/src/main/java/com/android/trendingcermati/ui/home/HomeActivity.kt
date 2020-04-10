@@ -1,4 +1,4 @@
-package com.android.trendingcermati.ui
+package com.android.trendingcermati.ui.home
 
 import com.android.trendingcermati.R
 import com.android.trendingcermati.base.BaseActivity
