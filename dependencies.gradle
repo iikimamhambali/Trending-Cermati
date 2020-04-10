@@ -1,0 +1,85 @@
+ext {
+    kotlinVersion = '1.3.50'
+    supportLibraryVersion = '28+'
+    okHttp3Version = '3.8.1'
+    rxJava2Version = '2.1.7'
+    rxAndroid2Version = '2.0.2'
+    retrofitRx2AdapterVersion = '2.3.0'
+    retrofit2Version = '2.3.0'
+    glideVersion = '4.9.0'
+    glideOkHttpVersion = '4.9.0'
+    koinVersion = '2.0.0-GA'
+    gsonVersion = '2.8.5'
+    espressoCoreVersion = '2.2.2'
+    constrainLayoutVersion = '1.1.2'
+    ankoVersion = '0.10.8'
+    multidexVersion = '1.0.1'
+    rxBindingVersion = '2.0.0'
+    leakCanaryVersion = '1.5.4'
+    archVersion = '2.0.0'
+    shimmerLayout = '2.1.0'
+    shimmer = '0.5.0'
+
+    supportDependencies = [
+            coreKtx        : 'androidx.core:core-ktx:1.1.0',
+            support         : "com.android.support:support-v4:${supportLibraryVersion}",
+            appCompat       : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            design          : "com.android.support:design:${supportLibraryVersion}",
+            recyclerView    : "com.android.support:recyclerview-v7:${supportLibraryVersion}",
+            cardView        : "com.android.support:cardview-v7:${supportLibraryVersion}",
+            constrainLayout: 'androidx.constraintlayout:constraintlayout:1.1.3'
+    ]
+
+    archLifecycle = [
+            archViewModel                : "androidx.lifecycle:lifecycle-viewmodel:$archVersion",
+            archLiveData                 : "android.arch.lifecycle:livedata:$archVersion",
+            archExtensions               : "androidx.lifecycle:lifecycle-extensions:$archVersion",
+            archReactiveStream           : "android.arch.lifecycle:reactivestreams:$archVersion",
+            archCompiler                 : "androidx.lifecycle:lifecycle-compiler:$archVersion"
+    ]
+
+    libraries = [
+            okHttp3                  : "com.squareup.okhttp3:okhttp:${okHttp3Version}",
+            okhttp3Logging           : "com.squareup.okhttp3:logging-interceptor:${okHttp3Version}",
+            okhttp3UrlConnection     : "com.squareup.okhttp3:okhttp-urlconnection:${okHttp3Version}",
+            rxJava2                  : "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
+            rxAndroid2               : "io.reactivex.rxjava2:rxandroid:${rxAndroid2Version}",
+            retrofit                 : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
+            retrofitGson             : "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
+            retrofitRx2Adapter       : "com.squareup.retrofit2:adapter-rxjava2:${retrofitRx2AdapterVersion}",
+            glide                    : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideAnnotation          : "com.github.bumptech.glide:annotations:${glideVersion}",
+            glideAnnotationProc      : "com.github.bumptech.glide:compiler:${glideVersion}",
+            glideOkHttp3             : "com.github.bumptech.glide:okhttp3-integration:${glideOkHttpVersion}@aar",
+            koinCore                 : "org.koin:koin-core:${koinVersion}",
+            koinAndroid              : "org.koin:koin-android:${koinVersion}",
+            koinScope                : "org.koin:koin-android-scope:${koinVersion}",
+            koinViewModel            : "org.koin:koin-android-viewmodel:${koinVersion}",
+            gson                     : "com.google.code.gson:gson:${gsonVersion}",
+            kotlinJre7               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}",
+            anko                     : "org.jetbrains.anko:anko:${ankoVersion}",
+            ankoCommon               : "org.jetbrains.anko:anko-commons:${ankoVersion}",
+            multidex                 : 'androidx.multidex:multidex:2.0.0',
+            rxBindingPlatform        : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+            rxBindingAppCompat       : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBindingVersion}",
+            rxBindingSupport         : "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBindingVersion}",
+            rxBindingPlatformKotlin  : "com.jakewharton.rxbinding2:rxbinding-kotlin:${rxBindingVersion}",
+            rxBindingAppCompatKotlin : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:${rxBindingVersion}",
+            rxBindingSupportKotlin   : "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:${rxBindingVersion}",
+            debugLeakCanary          : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+            releaseLeakCanary        : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
+            shimmerLayout            : "io.supercharge:shimmerlayout:${shimmerLayout}",
+            shimmer                  : "com.facebook.shimmer:shimmer:${shimmer}@aar"
+    ]
+
+    testSupportDependencies = [
+            espressoCore          : 'androidx.test.espresso:espresso-core:3.2.0',
+            espressoIntents       : "com.android.support.test.espresso:espresso-intents:${espressoCoreVersion}",
+            espressoContrib       : "com.android.support.test.espresso:espresso-contrib:${espressoCoreVersion}",
+            espressoIdlingResource: "com.android.support.test.espresso:espresso-idling-resource:${espressoCoreVersion}"
+    ]
+
+    testLibraries = [
+            junit                    : "junit:junit:4.12",
+    ]
+}
