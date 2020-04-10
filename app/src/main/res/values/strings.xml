@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Trending Cermati</string>
+    <string name="server_url"></string>
 </resources>
