@@ -1,13 +1,11 @@
 package com.android.trendingcermati.ui
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.android.trendingcermati.R
+import com.android.trendingcermati.base.BaseActivity
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+    override fun getLayoutResId(): Int = R.layout.activity_main
+
+
 }
