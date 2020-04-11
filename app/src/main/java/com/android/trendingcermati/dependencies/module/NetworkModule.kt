@@ -3,6 +3,7 @@ package com.android.trendingcermati.dependencies.module
 import com.android.trendingcermati.R
 import com.android.trendingcermati.helper.LiveDataCallAdapterFactory
 import com.android.trendingcermati.helper.NetworkServiceFactory
+import com.android.trendingcermati.helper.RequestInterceptor
 import com.android.trendingcermati.network.SearchService
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -13,13 +14,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
 
-    single { NetworkServiceFactory.makeClientService(get(), get()) }
+    single { NetworkServiceFactory.makeClientService(get(), get(), get()) }
 
     single { NetworkServiceFactory.makeLoggingInterceptor() }
 
     single { NetworkServiceFactory.makeCache(get()) }
 
     single { NetworkServiceFactory.makeGson() }
+
+    single { RequestInterceptor() }
 
     single(named("RetrofitUser")) {
         Retrofit.Builder()

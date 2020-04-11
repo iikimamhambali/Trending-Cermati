@@ -5,20 +5,25 @@ import retrofit2.Response
 internal const val UNKNOWN_CODE = -1
 
 sealed class ApiResponse<T> {
+
     companion object {
+
         fun <T> create(response: Response<T>): ApiResponse<T> {
-            return if (response.isSuccessful) {
-                val body = response.body()
-                if (body == null || response.code() == 401 || response.code() == 404) {
-                    ApiEmptyResponse()
-                } else {
-                    ApiSuccessResponse(body)
+            val body = response.body()
+            return when {
+                response.isSuccessful -> {
+                    if (body == null || response.code() == 403 || response.code() == 404) {
+                        ApiEmptyResponse()
+                    } else {
+                        ApiSuccessResponse(body)
+                    }
                 }
-            } else {
-                ApiErrorResponse(
-                    response.code(),
-                    RuntimeException(response.message())
-                )
+                else -> {
+                    ApiErrorResponse(
+                        response.code(),
+                        RuntimeException(response.message())
+                    )
+                }
             }
         }
 
@@ -30,6 +35,6 @@ sealed class ApiResponse<T> {
 
 class ApiEmptyResponse<T> : ApiResponse<T>()
 
-data class ApiErrorResponse<T>(val errorCode: Int, val error: Throwable): ApiResponse<T>()
+data class ApiErrorResponse<T>(val errorCode: Int, val error: Throwable) : ApiResponse<T>()
 
-data class ApiSuccessResponse<T>(val body: T): ApiResponse<T>()
+data class ApiSuccessResponse<T>(val body: T) : ApiResponse<T>()

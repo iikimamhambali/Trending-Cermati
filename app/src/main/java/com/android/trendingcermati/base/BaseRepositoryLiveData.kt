@@ -7,57 +7,52 @@ import androidx.lifecycle.MediatorLiveData
 import com.android.trendingcermati.helper.*
 import java.io.IOException
 
-abstract class BaseRepositoryLiveData<Type>(private val appExecutors: AppExecutors) {
+abstract class BaseRepositoryLiveData<Type>(
+    private val appExecutors: AppExecutors,
+    private val isLoadingPage: Boolean
+) {
 
     private val result = MediatorLiveData<SourceStatus<Type>>()
 
     init {
-        result.value = SourceStatus.loading(null)
-        @Suppress("LeakingThis")
-        val dbSource = loadFromLocal()
-        result.addSource(dbSource) { data ->
-            result.removeSource(dbSource)
-            if (shouldFetchFromNetwork(data)) {
-                fetchFromNetwork(dbSource)
-            } else {
-                result.addSource(dbSource) { newData ->
-                    setValue(SourceStatus.success(newData))
-                }
-            }
-        }
+        setLoadingViewType()
+        fetchFromNetwork()
     }
 
     @MainThread
     private fun setValue(newValue: SourceStatus<Type>) {
-        if (result.value != newValue) {
-            result.value = newValue
+        if (result().value != newValue) {
+            result().value = newValue
         }
     }
 
-    private fun fetchFromNetwork(dbSource: LiveData<Type>) {
+    private fun fetchFromNetwork() {
         val apiResponse = loadFromNetwork()
-        result.addSource(dbSource) { newData ->
-            setValue(SourceStatus.loading(newData))
-        }
         setValue(SourceStatus.loading())
-        result.addSource(apiResponse) { response ->
-            result.removeSource(apiResponse)
-            result.removeSource(dbSource)
+        result().addSource(apiResponse) { response ->
+            result().removeSource(apiResponse)
             when (response) {
                 is ApiSuccessResponse -> {
                     appExecutors.diskIO().execute {
                         val newResponse = processResponse(response)
-                        saveFromNetwork(newResponse)
                         appExecutors.mainThread().execute {
-                            result.addSource(apiResponse) {
-                                setValue(SourceStatus.success(newResponse))
-                            }
+                            fetchData(response)
+                            setValue(SourceStatus.success(newResponse))
                         }
                     }
                 }
                 is ApiErrorResponse -> {
                     appExecutors.mainThread().execute {
                         when {
+                            response.errorCode == ErrorCodeResponse.NOT_FOUND ->{
+                                setValue(SourceStatus.empty(response.error))
+                            }
+                            response.errorCode == ErrorCodeResponse.UNAUTHORIZED ->{
+                                setValue(SourceStatus.unAuthorization(response.error))
+                            }
+                            response.errorCode == ErrorCodeResponse.RATE_LIMIT_EXCEEDED ->{
+                                setValue(SourceStatus.limitExceeded(response.error))
+                            }
                             response.error is IOException -> setValue(
                                 SourceStatus.networkFailed(
                                     response.error
@@ -71,19 +66,27 @@ abstract class BaseRepositoryLiveData<Type>(private val appExecutors: AppExecuto
         }
     }
 
-    fun asLiveData() = result as LiveData<SourceStatus<Type>>
+    private fun setLoadingViewType() {
+        when (isLoadingPage) {
+            false -> {
+                setValue(SourceStatus.loading(null))
+            }
+            else -> {
+                setValue(SourceStatus.loadingPage(null))
+            }
+        }
+    }
+
+    fun asLiveData() = result() as LiveData<SourceStatus<Type>>
 
     @WorkerThread
     protected open fun processResponse(response: ApiSuccessResponse<Type>) = response.body
 
-    @WorkerThread
-    protected abstract fun saveFromNetwork(item: Type)
+    @MainThread
+    protected abstract fun fetchData(response: ApiSuccessResponse<Type>)
 
     @MainThread
-    protected abstract fun shouldFetchFromNetwork(data: Type?): Boolean
-
-    @MainThread
-    protected abstract fun loadFromLocal(): LiveData<Type>
+    protected abstract fun result(): MediatorLiveData<SourceStatus<Type>>
 
     @MainThread
     protected abstract fun loadFromNetwork(): LiveData<ApiResponse<Type>>

@@ -93,6 +93,7 @@ dependencies {
     implementation supportDependencies.design
     implementation supportDependencies.cardView
     implementation supportDependencies.constrainLayout
+    implementation supportDependencies.paging
 
     api archLifecycle.archExtensions
     api archLifecycle.archViewModel

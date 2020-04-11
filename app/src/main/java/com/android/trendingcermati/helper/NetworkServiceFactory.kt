@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object NetworkServiceFactory {
 
-    fun makeClientService(loggingInterceptor: HttpLoggingInterceptor, cache: Cache): OkHttpClient {
+    fun makeClientService(loggingInterceptor: HttpLoggingInterceptor, cache: Cache, requestInterceptor: RequestInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .cache(cache)
             .addInterceptor { chain ->
@@ -18,6 +18,7 @@ object NetworkServiceFactory {
                 ongoing.addHeader("Content-Type", "application/json")
                 chain.proceed(ongoing.build())
             }
+            .addInterceptor(requestInterceptor)
             .addInterceptor(loggingInterceptor)
             .build()
     }

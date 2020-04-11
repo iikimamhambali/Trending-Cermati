@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Trending Cermati</string>
-    <string name="server_url"></string>
+    <string name="server_url">https://api.github.com</string>
 </resources>

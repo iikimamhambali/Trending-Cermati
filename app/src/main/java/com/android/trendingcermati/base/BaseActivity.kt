@@ -28,5 +28,11 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun onInternetError(){}
 
+    override fun onDataNotFound() {}
+
+    override fun onLimitExceeded() {}
+
+    override fun onUnAuthorization() {}
+
     override fun onError(throwable: Throwable?){}
 }

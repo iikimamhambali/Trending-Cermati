@@ -30,14 +30,22 @@ interface BaseView {
 
     fun onInternetError()
 
-    fun onError(throwable: Throwable? = null)
+    fun onDataNotFound()
 
+    fun onLimitExceeded()
+
+    fun onUnAuthorization()
+
+    fun onError(throwable: Throwable? = null)
 
     fun <T> parseObserveData(
         resource: SourceStatus<T>,
         resultLoading: (T?) -> Unit = { startLoading() },
         resultSuccess: (T, T) -> Unit = { _, _ -> },
         resultNetworkFailed: (Throwable?) -> Unit = { onInternetError() },
+        resultDataNotFound: (Throwable?) -> Unit = { onDataNotFound() },
+        resultLimitExeeded: (Throwable?) -> Unit = { onLimitExceeded() },
+        resultAuthorization: (Throwable?) -> Unit = { onUnAuthorization() },
         resultError: (Throwable?) -> Unit = { onError(it) }
     ) {
         when (resource.status) {
@@ -51,6 +59,18 @@ interface BaseView {
             Status.NETWORK_FAILED -> {
                 stopLoading()
                 resultNetworkFailed(resource.throwable)
+            }
+            Status.NOT_FOUND -> {
+                stopLoading()
+                resultNetworkFailed(resource.throwable)
+            }
+            Status.LIMIT_EXCEEDED -> {
+                stopLoading()
+                resultLimitExeeded(resource.throwable)
+            }
+            Status.UNAUTHORIZATION -> {
+                stopLoading()
+                resultAuthorization(resource.throwable)
             }
             Status.ERROR -> {
                 stopLoading()
