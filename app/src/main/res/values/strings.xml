@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Trending Cermati</string>
     <string name="server_url">https://api.github.com</string>
+    <string name="label_title_error_connection">Network Error</string>
+    <string name="label_subtitle_error_connection">Please Check Your Connection Device</string>
+    <string name="label_title_empty_data">User Not Found</string>
+    <string name="label_subtitle_empty_data">Please check your type</string>
+    <string name="label_try_again">Try Again</string>
 </resources>

@@ -6,8 +6,8 @@ import androidx.paging.PageKeyedDataSource
 import com.android.trendingcermati.base.BaseRepositoryLiveData
 import com.android.trendingcermati.entity.User
 import com.android.trendingcermati.entity.UserResult
-import com.android.trendingcermati.helper.ApiResponse
-import com.android.trendingcermati.helper.ApiSuccessResponse
+import com.android.trendingcermati.extention.ApiResponse
+import com.android.trendingcermati.extention.ApiSuccessResponse
 import com.android.trendingcermati.helper.AppExecutors
 import com.android.trendingcermati.helper.SourceStatus
 import com.android.trendingcermati.network.SearchService

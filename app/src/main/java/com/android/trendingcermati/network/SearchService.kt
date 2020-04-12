@@ -2,7 +2,7 @@ package com.android.trendingcermati.network
 
 import androidx.lifecycle.LiveData
 import com.android.trendingcermati.entity.UserResult
-import com.android.trendingcermati.helper.ApiResponse
+import com.android.trendingcermati.extention.ApiResponse
 import com.android.trendingcermati.network.Param.LIMIT_ITEM
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,4 +1,4 @@
-package com.android.trendingcermati.helper
+package com.android.trendingcermati.factory
 
 import com.android.trendingcermati.network.Param
 import okhttp3.Interceptor

@@ -1,9 +1,9 @@
 package com.android.trendingcermati.dependencies.module
 
 import com.android.trendingcermati.R
-import com.android.trendingcermati.helper.LiveDataCallAdapterFactory
-import com.android.trendingcermati.helper.NetworkServiceFactory
-import com.android.trendingcermati.helper.RequestInterceptor
+import com.android.trendingcermati.factory.LiveDataCallAdapterFactory
+import com.android.trendingcermati.factory.NetworkServiceFactory
+import com.android.trendingcermati.factory.RequestInterceptor
 import com.android.trendingcermati.network.SearchService
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext

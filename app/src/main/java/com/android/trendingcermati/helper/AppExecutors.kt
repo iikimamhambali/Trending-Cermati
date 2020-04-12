@@ -7,22 +7,20 @@ import java.util.concurrent.Executors
 
 open class AppExecutors(
     private val diskIO: Executor,
-    private val networkIO: Executor,
     private val mainThread: Executor
 ) {
 
+    companion object {
+        const val FIXED_THREAD_POOL = 4
+    }
+
     constructor() : this(
-        Executors.newSingleThreadExecutor(),
-        Executors.newFixedThreadPool(3),
+        Executors.newFixedThreadPool(FIXED_THREAD_POOL),
         MainThreadExecutor()
     )
 
     fun diskIO(): Executor {
         return diskIO
-    }
-
-    fun networkIO(): Executor {
-        return networkIO
     }
 
     fun mainThread(): Executor {

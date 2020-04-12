@@ -7,12 +7,12 @@ import com.android.trendingcermati.entity.User
 class SearchDataSourceFactory(private var repository: SearchRepository) :
     DataSource.Factory<Long, User>(){
 
-    var dataStore: SearchDataSource? = null
+    lateinit var dataStore: SearchDataSource
     val main: MutableLiveData<SearchDataSource> = MutableLiveData()
     var user: String = ""
 
     override fun create(): DataSource<Long, User> {
         dataStore = SearchDataSource(repository).apply { query = user }
-        return dataStore.also { main.value = it }!!
+        return dataStore.also { main.value = it }
     }
 }

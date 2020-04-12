@@ -1,4 +1,4 @@
-package com.android.trendingcermati.helper
+package com.android.trendingcermati.factory
 
 import android.content.Context
 import com.android.trendingcermati.BuildConfig

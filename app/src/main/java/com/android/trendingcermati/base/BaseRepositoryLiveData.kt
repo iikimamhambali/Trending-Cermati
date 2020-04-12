@@ -4,6 +4,9 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.android.trendingcermati.extention.ApiErrorResponse
+import com.android.trendingcermati.extention.ApiResponse
+import com.android.trendingcermati.extention.ApiSuccessResponse
 import com.android.trendingcermati.helper.*
 import java.io.IOException
 

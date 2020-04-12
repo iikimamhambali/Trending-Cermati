@@ -1,4 +1,4 @@
-package com.android.trendingcermati.helper
+package com.android.trendingcermati.extention
 
 import retrofit2.Response
 

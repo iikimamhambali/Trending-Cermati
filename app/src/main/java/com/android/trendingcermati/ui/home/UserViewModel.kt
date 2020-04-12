@@ -40,7 +40,7 @@ class UserViewModel(
     fun searchUsers(query: String) {
         factory.apply {
             user = query
-            dataStore?.invalidate()
+            dataStore.invalidate()
         }
     }
 

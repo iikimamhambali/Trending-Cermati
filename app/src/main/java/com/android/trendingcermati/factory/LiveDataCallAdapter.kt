@@ -1,6 +1,8 @@
-package com.android.trendingcermati.helper
+package com.android.trendingcermati.factory
 
 import androidx.lifecycle.LiveData
+import com.android.trendingcermati.extention.ApiResponse
+import com.android.trendingcermati.extention.UNKNOWN_CODE
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback

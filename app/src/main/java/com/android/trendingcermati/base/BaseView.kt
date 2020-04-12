@@ -2,7 +2,7 @@ package com.android.trendingcermati.base
 
 import android.os.Bundle
 import com.android.trendingcermati.helper.SourceStatus
-import com.android.trendingcermati.helper.Status
+import com.android.trendingcermati.helper.StatusState
 
 interface BaseView {
 
@@ -41,6 +41,7 @@ interface BaseView {
     fun <T> parseObserveData(
         resource: SourceStatus<T>,
         resultLoading: (T?) -> Unit = { startLoading() },
+        resultLoadingPage: (T?) -> Unit = { startLoading() },
         resultSuccess: (T, T) -> Unit = { _, _ -> },
         resultNetworkFailed: (Throwable?) -> Unit = { onInternetError() },
         resultDataNotFound: (Throwable?) -> Unit = { onDataNotFound() },
@@ -49,34 +50,33 @@ interface BaseView {
         resultError: (Throwable?) -> Unit = { onError(it) }
     ) {
         when (resource.status) {
-            Status.LOADING -> {
+            StatusState.Loading -> {
                 resultLoading(resource.data)
             }
-            Status.SUCCESS -> {
+            StatusState.LoadingPage -> {
+                resultLoading(resource.data)
+            }
+            StatusState.Success -> {
                 stopLoading()
                 resource.data?.let { resultSuccess(it, it) }
             }
-            Status.NETWORK_FAILED -> {
+            StatusState.NetworkFailed -> {
                 stopLoading()
                 resultNetworkFailed(resource.throwable)
             }
-            Status.NOT_FOUND -> {
+            StatusState.NotFound -> {
                 stopLoading()
                 resultNetworkFailed(resource.throwable)
             }
-            Status.LIMIT_EXCEEDED -> {
+            StatusState.LimitExceeded -> {
                 stopLoading()
                 resultLimitExeeded(resource.throwable)
             }
-            Status.UNAUTHORIZATION -> {
+            StatusState.Unauthorized -> {
                 stopLoading()
                 resultAuthorization(resource.throwable)
             }
-            Status.ERROR -> {
-                stopLoading()
-                resultError(resource.throwable)
-            }
-            else -> {
+            StatusState.UnknownError -> {
                 stopLoading()
                 resultError(resource.throwable)
             }
