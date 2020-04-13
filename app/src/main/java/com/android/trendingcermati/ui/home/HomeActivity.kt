@@ -8,7 +8,6 @@ import com.android.trendingcermati.base.BaseActivity
 import com.android.trendingcermati.extention.hideKeyboard
 import com.android.trendingcermati.extention.loadFromResource
 import com.android.trendingcermati.ui.home.adapter.HomeAdapter
-import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -16,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.sectionEmptyState
 import kotlinx.android.synthetic.main.layout_connection_lost.btnReload
 import kotlinx.android.synthetic.main.layout_connection_lost.view.*
+import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
@@ -57,20 +57,6 @@ class HomeActivity : BaseActivity() {
         ivHeader.bringToFront()
     }
 
-    private fun setVisibilityContent(visible: Boolean) {
-        when (visible) {
-            true -> {
-                progressView.visibility = View.GONE
-//                rvUser.visibility = View.VISIBLE
-            }
-            else -> {
-//                rvUser.visibility = View.GONE
-                progressView.visibility = View.VISIBLE
-            }
-        }
-
-    }
-
     private fun setOnClickReload() {
         btnReload.setOnClickListener { loadingData() }
     }
@@ -107,27 +93,21 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun startLoading() {
-        setVisibilityContent(false)
+        progressView.visibility = View.VISIBLE
     }
 
     override fun stopLoading() {
-        setVisibilityContent(true)
+        progressView.visibility = View.GONE
     }
 
     override fun onDataNotFound() {
         this.hideKeyboard(sectionEmptyState)
-        sectionEmptyState.apply {
-            visibility = View.VISIBLE
-            ivEmpty.loadFromResource(R.drawable.ic_empty_user)
-            tvTitleEmpty.text = getString(R.string.label_title_empty_data)
-            tvSubtitleEmpty.text = getString(R.string.label_subtitle_empty_data)
-        }
+        toast(getString(R.string.label_title_empty_data))
     }
 
     override fun onLimitExceeded() {
         this.hideKeyboard(sectionMain)
-        Snackbar.make(sectionMain, "Please try again in one minute", Snackbar.LENGTH_SHORT)
-//        toast("Please try again in one minute")
+        toast(getString(R.string.label_limit_exceeded))
     }
 
     override fun onInternetError() {
