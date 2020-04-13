@@ -82,9 +82,7 @@ dependencies {
     implementation libraries.koinScope
     implementation libraries.koinViewModel
     implementation libraries.multidex
-    implementation libraries.shimmerLayout
     implementation libraries.glide
-    implementation libraries.shimmer
 
     implementation supportDependencies.appCompat
     implementation supportDependencies.coreKtx
@@ -93,12 +91,11 @@ dependencies {
     implementation supportDependencies.design
     implementation supportDependencies.cardView
     implementation supportDependencies.constrainLayout
+    implementation supportDependencies.androidX
     implementation supportDependencies.paging
 
     api archLifecycle.archExtensions
     api archLifecycle.archViewModel
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     testImplementation testLibraries.junit
 
