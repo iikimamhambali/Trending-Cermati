@@ -6,4 +6,5 @@
     <string name="label_title_empty_data">User Not Found</string>
     <string name="label_subtitle_empty_data">Please check your type</string>
     <string name="label_try_again">Try Again</string>
+    <string name="label_limit_exceeded">Please try again in one minute</string>
 </resources>
